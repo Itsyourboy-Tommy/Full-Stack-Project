@@ -13,7 +13,7 @@
             height:99%;
             width:99%;
         }
-        h1, p{
+        h1, p, h3{
             text-align: center;
             color: white;
         }
@@ -54,22 +54,36 @@
     </ul>   
     <h1>Admin Pagina</h1>
 
-    <p>Voeg een band toe</p>
+    <h3>Voeg een band toe</h3>
 
-    <form action="" method="POST">
+    <form action="admin_bf.php" method="POST">
+        bandID: <input type="number" name="bandid"><br>
         Band Name: <input type="text" name="band_name"><br>
         Genre: <input type="text" name="genre"><br>
         Herkomst: <input type="text" name="herkomst"><br>
         Omschrijving: <input type="text" name="omschrijving"><br><br>
-        <input type="submit"><br><br><br>
+        <input type="submit"><br>
     </form>
 
-    <p>Voeg een muziekavond toe</p>
-    <form action="">
-        Datum: <input type="text" name="datum"><br>
-        Aanvangstijd: <input type="text" name="aanvangstijd"><br>
+    <h3>Voeg een muziekavond toe</h3>
+
+    <form action="admin_mf.php" method="POST">
+        muziekavondID: <input type="number" name="muziekavondid"><br>
+        Datum: <input type="date" name="datum"><br>
+        Aanvangstijd: <input type="time" name="aanvangstijd"><br>
         Entreeprijs: <input type="text" name="entreeprijs"><br>
         Drankomzet: <input type="text" name="drankomzet"><br><br>
+        <input type="submit">
+    </form>
+
+    <h3>Tussen band & muziekavond</h3>
+
+    <form action="admin_tbm.php" method="POST">
+        MuziekavondID: <input type="number" name="muziekavond_id"><br>
+        BandID: <input type="number" name="bandid"><br>
+        Hoofdact: <input type="checkbox" name="hoofdact"><br>
+        Aantal Sets: <input type="text" name="aantal_sets"><br>
+        Duurtijd Sets: <input type="text" name="duurtijd_sets"><br><br>
         <input type="submit">
     </form>
 </body>

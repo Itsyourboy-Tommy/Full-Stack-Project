@@ -78,6 +78,8 @@
         <tr>
             <th>Muziekavond</th>
             <th>Datum</th>
+            <th>band</th>
+            <th>genre</th>
             <th>herkomst</th>
             <th>omschrijving</th>
             <th>Hoofdact of Supportact</th>
@@ -86,7 +88,7 @@
             <th >Entree Prijs</th>
         </tr>
         <?php
-            $query = $dbh->prepare("select * from band");
+        /*    $query = $dbh->prepare("select * from band");
             $result = $query->execute();
             $all = $query->fetchAll();
             foreach( $all as $row ) {
@@ -96,7 +98,7 @@
             <td>" . $row["genre"] . "</td>
             <td>" . $row["herkomst"] . "</td>
             <td>" . $row["omschrijving"] . "</td>");
-            }
+            };
             $query = $dbh->prepare("select * from muziekavond_has_band");
             $result = $query->execute();
             $all = $query->fetchAll();
@@ -109,10 +111,10 @@
                     <td>" . "Supportact" . "</td>
                     ");}
                         echo("
-            <td>" . $row["aantal sets"] . "</td>
-            <td>" . $row["duurtijd sets"] . "</td>"
+            <td>" . $row["aantal_sets"] . "</td>
+            <td>" . $row["duurtijd_sets"] . "</td>"
         );
-            }
+            };
             $query = $dbh->prepare("select * from muziekavond");
             $result = $query->execute();
             $all = $query->fetchAll();
@@ -120,8 +122,74 @@
         echo("
             <td style='text-align: center'>" . $row["entreeprijs"] . "</td>
         </tr>");
-        }?>
+        };*/
+        
+        $query = $dbh->prepare(
+        "SELECT * FROM muziekavond 
+        INNER JOIN muziekavond_has_band ON muziekavond.idmuziekavond = muziekavond_has_band.muziekavond_idmuziekavond
+        INNER JOIN band ON muziekavond_has_band.band_idband = band.idband;");
+        $result = $query->execute();
+        $all = $query->fetchAll();
+
+        $int = 1;
+
+        foreach($all as $key => $value){
+            $id_Muziekavond = $value["idmuziekavond"];
+            if($value["hoofdact"] == 1){
+                $ha_sa = "Hoofdact";
+            }else{
+                $ha_sa = "Supportact";
+            };
+
+/*            if($value["idmuziekavond"] == $int){
+                echo("<tr>
+                <td>" . $value["idmuziekavond"] . "</td>
+                <td>" . $value["datum"] . "</td>");
+                echo($int);
+                ++$int;
+            }else{
+                echo("
+                <td>  </td> 
+                <td>  </td>");
+            };*/
+
+            if($key > 0){
+            $prev = $all[$key - 1];
+            if($value["datum"] !== $prev["datum"]){
+                echo("<tr>
+                <td>" . $value["idmuziekavond"] . "</td>
+                <td>" . $value["datum"] . "</td>");
+            }else{
+                echo("
+                <td>  </td> 
+                <td>  </td>");
+            }}else{
+            echo("<tr>
+            <td>" . $value["idmuziekavond"] . "</td>
+            <td>" . $value["datum"] . "</td>");  
+            };
+            
+/*            if($key > 0 && $value["datum"] == $prev["datum"]){
+            echo("OLA");
+        }else{
+            echo("<tr>
+            <td>" . $value["idmuziekavond"] . "</td>
+            <td>" . $value["datum"] . "</td>");}*/
+            echo("
+            <td>" . $value["naam"] . "</td>
+            <td>" . $value["genre"] . "</td>
+            <td>" . $value["herkomst"] . "</td>
+            <td>" . $value["omschrijving"] . "</td>
+            <td>" . $ha_sa . "</td>
+            <td>" . $value["aantal_sets"] . "</td>
+            <td>" . $value["duurtijd_sets"] . "</td>
+            <td>" . $value["entreeprijs"] . "</td>
+            </tr>");};
+        ?>
         <tr>
+            <td>test</td>
+            <td>test</td>
+            <td>test</td>
             <td>test</td>
             <td>test</td>
             <td>test</td>
@@ -131,6 +199,9 @@
             <td>test</td>
         </tr>
         <tr>
+            <td>test</td>
+            <td>test</td>
+            <td>test</td>
             <td>test</td>
             <td>test</td>
             <td>test</td>
