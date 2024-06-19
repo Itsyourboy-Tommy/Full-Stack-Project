@@ -53,7 +53,3 @@
     <p>testing the test to see if the testing works on the test</p>
 </body>
 </html>
-<?php
-
-
-?>
